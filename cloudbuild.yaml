@@ -28,7 +28,7 @@ steps:
       - 'my-app=us-central1-docker.pkg.dev/project-24-uad/my-app-repo/nginx-image:latest'
     env:
       - 'CLOUDSDK_COMPUTE_REGION=us-central1-c'
-      - 'CLOUDSDK_CONTAINER_CLUSTER=gke-2'
+      - 'CLOUDSDK_CONTAINER_CLUSTER=gke-1'
 
 # Define substitutions (optional but helps with versioning)
 substitutions:
