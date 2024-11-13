@@ -30,7 +30,7 @@ steps:
       - 'CLOUDSDK_COMPUTE_REGION=us-central1-c'
       - 'CLOUDSDK_CONTAINER_CLUSTER=gke-2'
 
-# Optional but recommended - Define substitutions for easy versioning
+# Define substitutions (optional but helps with versioning)
 substitutions:
   _DEPLOYMENT_NAME: 'my-app'
   _IMAGE: 'us-central1-docker.pkg.dev/project-24-uad/my-app-repo/nginx-image:latest'
@@ -38,3 +38,6 @@ substitutions:
 # Specify images to build
 images:
   - 'us-central1-docker.pkg.dev/project-24-uad/my-app-repo/nginx-image:latest'
+
+options:
+  vpcConnector: projects/project-24-uad/locations/us-central1/connectors/your-vpc-connector
