@@ -1,3 +1,6 @@
+# Specify the logs bucket to store build logs
+logsBucket: gs://cloud-build--pvt-logs
+
 steps:
   # Step 1: Build the Docker image
   - name: 'gcr.io/cloud-builders/docker'
