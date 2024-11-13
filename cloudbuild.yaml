@@ -39,6 +39,7 @@ substitutions:
 images:
   - 'us-central1-docker.pkg.dev/project-24-uad/my-app-repo/nginx-image:latest'
 
-# Specify the worker pool
+# Specify the worker pool configuration
 options:
-  pool: projects/project-24-uad/locations/us-central1/workerPools/private-pool-2
+  pool:
+    name: 'projects/project-24-uad/locations/us-central1/workerPools/private-pool-2'
