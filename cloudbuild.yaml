@@ -19,7 +19,38 @@ steps:
   - name: 'gcr.io/cloud-builders/docker'
     args: ['push', 'us-central1-docker.pkg.dev/project-24-uad/my-app-repo/nginx-image:latest']
 
-  # Step 4: Deploy the application to GKE
+  # Step 4: Apply Deployment if it doesn't exist
+  - name: 'gcr.io/cloud-builders/kubectl'
+    args:
+      - 'apply'
+      - '-f'
+      - '-'
+    env:
+      - 'CLOUDSDK_COMPUTE_REGION=us-central1-c'
+      - 'CLOUDSDK_CONTAINER_CLUSTER=gke-2'
+    stdin:
+      | # YAML for deployment definition
+      apiVersion: apps/v1
+      kind: Deployment
+      metadata:
+        name: my-app
+        labels:
+          app: my-app
+      spec:
+        replicas: 1
+        selector:
+          matchLabels:
+            app: my-app
+        template:
+          metadata:
+            labels:
+              app: my-app
+          spec:
+            containers:
+            - name: my-app
+              image: us-central1-docker.pkg.dev/project-24-uad/my-app-repo/nginx-image:latest
+
+  # Step 5: Update the deployment image if deployment already exists
   - name: 'gcr.io/cloud-builders/kubectl'
     args:
       - 'set'
