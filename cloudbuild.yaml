@@ -40,4 +40,4 @@ images:
   - 'us-central1-docker.pkg.dev/project-24-uad/my-app-repo/nginx-image:latest'
 
 options:
-  vpcConnector: projects/project-24-uad/locations/us-central1/connectors/your-vpc-connector
+  vpcConnector: projects/project-24-uad/locations/us-central1/connectors/servicenetworking-googleapis-com
