@@ -42,4 +42,4 @@ images:
 # Specify the worker pool configuration
 options:
   pool:
-    name: 'projects/project-24-uad/locations/us-central1/workerPools/YOUR_WORKER_POOL_NAME'
+    name: 'projects/project-24-uad/locations/us-central1/workerPools/private-pool-2'
