@@ -19,38 +19,7 @@ steps:
   - name: 'gcr.io/cloud-builders/docker'
     args: ['push', 'us-central1-docker.pkg.dev/project-24-uad/my-app-repo/nginx-image:latest']
 
-  # Step 4: Apply Deployment if it doesn't exist
-  - name: 'gcr.io/cloud-builders/kubectl'
-    args:
-      - 'apply'
-      - '-f'
-      - '-'
-    env:
-      - 'CLOUDSDK_COMPUTE_REGION=us-central1-c'
-      - 'CLOUDSDK_CONTAINER_CLUSTER=gke-2'
-    stdin:
-      | # YAML for deployment definition
-      apiVersion: apps/v1
-      kind: Deployment
-      metadata:
-        name: my-app
-        labels:
-          app: my-app
-      spec:
-        replicas: 1
-        selector:
-          matchLabels:
-            app: my-app
-        template:
-          metadata:
-            labels:
-              app: my-app
-          spec:
-            containers:
-            - name: my-app
-              image: us-central1-docker.pkg.dev/project-24-uad/my-app-repo/nginx-image:latest
-
-  # Step 5: Update the deployment image if deployment already exists
+  # Step 4: Deploy the application to GKE
   - name: 'gcr.io/cloud-builders/kubectl'
     args:
       - 'set'
@@ -73,4 +42,4 @@ images:
 # Specify the worker pool configuration
 options:
   pool:
-    name: 'projects/project-24-uad/locations/us-central1/workerPools/private-pool-2'
+    name: 'projects/project-24-uad/locations/us-central1/workerPools/YOUR_WORKER_POOL_NAME'
