@@ -1,0 +1,29 @@
+steps:
+  # Step 1: Build the Docker image
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', 'us-central1-docker.pkg.dev/project-24-uad/my-app-repo/nginx-image:latest', '.']
+    # Replace IMAGE_NAME with a name for your Docker image, e.g., "my-app-image"
+
+  # Step 2: Push the Docker image to Artifact Registry
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'us-central1-docker.pkg.dev/project-24-uad/my-app-repo/nginx-image:latest']
+
+  # Step 3: Deploy the application to GKE
+  - name: 'gcr.io/cloud-builders/kubectl'
+    args:
+      - 'set'
+      - 'image'
+      - 'deployment/my-app'
+      - 'my-app=us-central1-docker.pkg.dev/project-24-uad/my-app-repo/nginx-image:latest'
+    env:
+      - 'CLOUDSDK_COMPUTE_REGION=us-central1-c'
+      - 'CLOUDSDK_CONTAINER_CLUSTER=gke-2'
+
+# Define substitutions (optional but helps with versioning)
+substitutions:
+  _DEPLOYMENT_NAME: 'my-app'
+  _IMAGE: 'us-central1-docker.pkg.dev/project-24-uad/my-app-repo/nginx-image:latest'
+
+# Specify images to build
+images:
+  - 'us-central1-docker.pkg.dev/project-24-uad/my-app-repo/nginx-image:latest'
